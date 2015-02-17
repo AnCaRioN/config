@@ -1,0 +1,56 @@
+! Onglets & liens cliquable (sur le clic droit)
+URxvt*perl-ext-common:	default,tabbed,matcher
+URxvt.urlLauncher:      firefox
+URxvt.matcher.button:   3
+
+! Taille par défaut
+URxvt*geometry: 74x27
+
+! Police TTF
+URxvt*font:	xft:Dejavu Sans Mono:pixelsize=13:antialias=true
+URxvt*boldFont:	xft:Dejavu Sans Mono:pixelsize=13:antialias=true
+
+! Taille du buffer et barre de défilement
+URxvt*saveLines: 10000
+URxvt*scrollBar: true
+URxvt*scrollBar_right: true
+URxvt*scrollColor: #c2dd5a
+URxvt*scrollBar_floating: true
+URxvt*scrollstyle: plain
+
+! Curseur et nom du terminal
+URxvt*cursorColor: orange
+URxvt*termName:rxvt-unicode
+
+! Pouvoir scroller avec screen
+URxvt*secondaryScroll: true
+
+! Couleurs 
+URxvt*foreground: #f2f2f2
+URxvt*background: #101010
+! Couleurs (Joe)
+!black
+URxvt*color0:                          #171717
+URxvt*color8:                          #737373
+!red
+URxvt*color1:                          #FF5E5E
+URxvt*color9:                          #FF7878
+!green
+URxvt*color2:                          #9CE82B
+URxvt*color10:                         #9ACD32
+!yellow
+URxvt*color3:                          #F0E68C
+URxvt*color11:                         #EEE8AA
+!blue
+URxvt*color4:                          #008AFF
+URxvt*color12:                         #4F98FF
+!magenta
+URxvt*color5:                          #E88CFF
+URxvt*color13:                         #EDA6FF
+!cyan
+URxvt*color6:                          #87CEFA
+URxvt*color14:                         #B0E2FF
+!white
+URxvt*color7:                          #DCDCCC
+URxvt*color15:                         #FFFFFF
+

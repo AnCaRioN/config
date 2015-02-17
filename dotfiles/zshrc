@@ -1,0 +1,109 @@
+# completion
+autoload -U compinit
+compinit
+autoload -U bashcompinit
+bashcompinit
+zstyle ':completion:*:descriptions' format '%B%d%b%u'
+zstyle ':completion:*:warnings' format '%BNo results for %d%b'
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*:rm:*' ignore-line yes
+zstyle ':completion:*:mv:*' ignore-line yes
+zstyle ':completion:*:cp:*' ignore-line yes
+zstyle ':completion:*:processes' command 'ps aux | grep $USER'
+zstyle ':completion:*:*:kill:*:processes' menu yes select
+zstyle ':completion:*:kill:*' force-list always
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
+
+# Couleurs dans ls
+#eval "`dircolors -b ~/.dircolorsrc`"
+
+#Alias
+alias ls='ls -F --color=auto'
+alias ll='ls -lhF --color=auto'
+alias la='ls -laF --color=auto'
+alias grep='grep --color=auto'
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+alias free='free -m'
+alias df='df -h'
+
+# variables
+export PAGER=most
+export EDITOR=vim
+export PATH=$PATH:/usr/sbin:/sbin:$HOME/bin
+export HISTFILE=~/.history
+export HISTSIZE=10000
+export HISTTIMEFORMAT="[ %d/%m/%Y %H:%M:%S ] "
+export SAVEHIST=$HISTSIZE
+
+export TERM=rxvt
+export XDG_CONFIG_HOME=~/.config/
+ 
+# Display
+if [ -z "$DISPLAY" ]; then
+    export DISPLAY=:0.0
+fi
+ 
+# terminal name
+if [ $TERM = "rxvt-unicode" ]; then
+    export TERM="rxvt"
+fi
+ 
+# settings
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt hist_ignore_all_dups
+setopt nohup
+setopt transient_rprompt
+setopt append_history
+ 
+# prompt
+autoload colors
+colors
+ 
+function precmd {
+    if [ `id -u` -eq 0 ]; then
+        local dircol="%{${fg_no_bold[red]}%}"
+        local sign="#"
+        export PS1="%T ${dircol}%}%n@%m%{${reset_color}%} %~ ${dircol}%}${sign}%{${reset_color}%} "
+    else
+        local dircol="%{${fg_no_bold[green]}%}"
+        local sign="$"
+        export PS1="%T ${dircol}%}%n@%m%{${reset_color}%} %~ ${dircol}%}${sign}%{${reset_color}%} "
+    fi
+ 
+    export PS2="... "
+    #export RPS1="%*"
+}
+ 
+# Binds
+bindkey "\e[1~" beginning-of-line # Home
+bindkey "\e[4~" end-of-line # End
+bindkey "\e[5~" beginning-of-history # PageUp
+bindkey "\e[6~" end-of-history # PageDown
+bindkey "\e[2~" quoted-insert # Ins
+bindkey "\e[3~" delete-char # Del
+bindkey "\e[5C" forward-word
+bindkey "\eOc" emacs-forward-word
+bindkey "\e[5D" backward-word
+bindkey "\eOd" emacs-backward-word
+bindkey "\e\e[C" forward-word
+bindkey "\e\e[D" backward-word
+bindkey "\e[Z" reverse-menu-complete # Shift+Tab
+# for rxvt
+bindkey "\e[7~" beginning-of-line # Home
+bindkey "\e[8~" end-of-line # End
+# for non RH/Debian xterm, can't hurt for RH/Debian xterm
+bindkey "\eOH" beginning-of-line
+bindkey "\eOF" end-of-line
+# for freebsd console
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
+
+# Le truc \_o<
+#fortune -s
+#cowsay -f `ls /usr/share/cowsay/cows |shuf -n1|cut -d'.' -f1` "`fortune -s`"
+
+eval $(ssh-agent)

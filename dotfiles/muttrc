@@ -1,0 +1,109 @@
+# .muttrc
+# David SANCHEZ
+
+# LCPQ
+set realname                = ''
+set from                    = ''
+set use_from                = yes
+
+alias identity_1    Name Surname   <email address>
+
+macro compose v "<edit-from>^Uidentity_<tab>" "Select from" 
+
+# Editeur
+set editor=vim
+
+# Réception
+set ssl_starttls            = yes
+set mail_check              = 600
+set timeout                 = 30
+set imap_user               = 
+set imap_authenticators     = login
+set imap_passive            = no
+set imap_check_subscribed   = yes
+set imap_list_subscribed    = yes
+set imap_keepalive          = 300
+set folder                  = imaps://
+set postponed               = +Drafts
+
+# Pour check dossiers régulièrement
+mailboxes                   = +INBOX
+
+# boost changement dossier imap
+set sleep_time = 0
+
+# delete déplace vers la corbeille au lieu de supprimer
+folder-hook . 'unset trash'
+folder-hook imaps://mailserver/ 'set trash="=Trash"'
+
+# Envoi
+set record                  = +Envoyé
+set sendmail                = /usr/bin/ssmtp
+set signature               = "/home/user/.signature"
+set send_charset            = "utf-8"
+
+# Cache messages et en-têtes
+set message_cachedir        = "~/.mutt/msg_cache"
+set header_cache            = "~/.mutt/header_cache"
+set certificate_file        = "~/.mutt/certificates"
+
+# Forward mail avec PJ
+set mime_forward
+set mime_forward_rest=yes
+
+### Cosmétique
+# HTML/png/gif/jpeg
+auto_view                   text/html
+set mailcap_path            = ~/.mutt/mailcap
+alternative_order           text/plain text/html
+
+# autres
+set beep                    = no
+set locale                  = "fr_FR.UTF-8"
+#set date_format            = "%d %b %Y à %H:%M:%S (%Z) "
+set attribution             = "%n <%a> [%{%d-%b-%Y %H:%M:%S (%Z)}] :"
+unignore Date Message-ID In-Reply-To
+set forward_format          = "[Fwd: %s]"
+set forward_quote
+#mailboxes !
+set charset                 = utf-8
+set pager_index_lines       = 7
+set pager_stop
+set sort                    = threads               # Trier par sujet dans l'index.
+set sort_aux                = last-date-received
+
+# sidebar
+set sidebar_width           = 25
+set sidebar_visible         = yes
+set sidebar_delim           = '|'
+set sidebar_sort            = no
+set sidebar_shortpath       = yes
+bind index \CP sidebar-prev
+bind index \CN sidebar-next
+bind index \CO sidebar-open
+bind pager \CP sidebar-prev
+bind pager \CN sidebar-prev
+bind pager \CO sidebar-prev
+
+# Palette for use with the Linux console.  Black background.
+color hdrdefault blue black
+color quoted blue black
+color signature blue black
+color attachment red black
+color message brightred black
+color error brightred black
+color indicator black red
+color status brightgreen blue
+color tree white black
+color normal white black
+color markers red black
+color search white black
+color tilde brightmagenta black
+color index blue black ~F
+color index red black "~N|~O"
+
+# contacts
+set alias_file = "~/.mutt/aliases"
+set sort_alias = alias
+set reverse_alias = yes
+source $alias_file
